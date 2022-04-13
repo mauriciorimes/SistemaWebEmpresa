@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<body>
+	<h:messages />
+	<h:form>
+	<h:panelGrid columns="2" border="3">
+		<h:outputLabel value="Nome:" />
+		<h:inputText value="#{filialBean.filial.nome}" required="true" requiredMessage="Campo Nome obrigatorio"/>
+		
+		<h:outputLabel value="CNPJ:" />
+		<h:inputText value="#{filialBean.filial.cnpj}" required="true" requiredMessage="Campo CNPJ obrigatorio"/>
+		
+		<h:outputLabel value="Rua:" />
+		<h:inputText value="#{filialBean.endereco.rua}" required="true" requiredMessage="Campo Rua obrigatorio" />	
+		
+		<h:outputLabel value="Numero:" />
+		<h:inputText value="#{filialBean.endereco.numero}"  required="true" requiredMessage="Campo Numero obrigatorio"/>
+		
+		<h:outputLabel value="Bairro:" />
+		<h:inputText value="#{filialBean.endereco.bairro}"  required="true" requiredMessage="Campo Bairro obrigatorio"/>
+		
+		<h:outputLabel value="Cidade:" />
+		<h:inputText value="#{filialBean.endereco.cidade}" required="true" requiredMessage="Campo Cidade obrigatorio" />
+		
+		<h:outputLabel value="CEP:" />
+		<h:inputText value="#{filialBean.endereco.cep}"  required="true" requiredMessage="Campo CEP obrigatorio"/>
+	</h:panelGrid>
+	<h:commandButton action="#{filialBean.gravarFilial()}" value="Gravar" />		
+	</h:form>
+	
+	<h:form>
+		<h:dataTable value="#{filialBean.listaDeFilial}" var="filialAtual" border="3">
+		<h:column>
+			<f:facet name="header">Nome da Filial</f:facet>
+			<h:outputText value="#{filialAtual.nome}" />
+		</h:column>
+		
+		<h:column>			
+			<f:facet name="header">CNJP da Filial</f:facet>
+			<h:outputText value="#{filialAtual.cnpj}" />
+		</h:column>
+		
+		<h:column>			
+			<f:facet name="header">Endereco</f:facet>
+			<h:outputText value="#{filialAtual.endereco.enderecoResumido}" />
+		</h:column>
+		
+		<h:column>
+			<f:facet name="header">Acoes</f:facet>
+			<h:commandButton action="#{filialBean.editarFilial(filialAtual)}" value="Editar" />		
+		</h:column>	
+	</h:dataTable>	
+	</h:form>	
+</body> 
+</html>

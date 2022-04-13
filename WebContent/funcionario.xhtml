@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<body>
+	<h:messages /> 
+	<h:form>
+	<h:panelGrid columns="2">
+		<h:outputLabel value="Nome: " />
+		<h:inputText value="#{funcionarioBean.funcionario.nome}" required="true" requiredMessage="Campo Nome obrigatorio" />
+		
+		<h:outputLabel value="Idade: " />
+		<h:inputText value="#{funcionarioBean.funcionario.idade}" required="true" requiredMessage="Campo Idade obrigatorio" />
+		
+		<h:outputLabel value="CPF: " />
+		<h:inputText value="#{funcionarioBean.funcionario.cpf}" required="true" requiredMessage="Campo CPF obrigatorio" />
+		
+		<h:outputLabel value="Salario: " />
+		<h:inputText value="#{funcionarioBean.funcionario.salario}" required="true" requiredMessage="Campo Salario obrigatorio" />	
+		
+		<h:outputLabel value="Rua: " />
+		<h:inputText value="#{funcionarioBean.endereco.rua}" required="true" requiredMessage="Campo Rua obrigatorio" />
+		
+		<h:outputLabel value="Numero: " />
+		<h:inputText value="#{funcionarioBean.endereco.numero}" required="true" requiredMessage="Campo Numero obrigatorio" />
+		
+		<h:outputLabel value="Bairro: " />
+		<h:inputText value="#{funcionarioBean.endereco.bairro}" required="true" requiredMessage="Campo Bairo obrigatorio" />
+		
+		<h:outputLabel value="Cidade: " />
+		<h:inputText value="#{funcionarioBean.endereco.cidade}"  required="true" requiredMessage="Campo Cidade obrigatorio"/>
+		
+		<h:outputLabel value="CEP: " />
+		<h:inputText value="#{funcionarioBean.endereco.cep}" required="true" requiredMessage="Campo CEP obrigatorio" />
+		
+		<h:outputLabel value="Filial: " for="fil" />
+		<h:selectOneMenu value="#{funcionarioBean.idFilialAtual}" id="fil" >
+			<f:selectItem itemLabel="Selecione uma Filial" itemValue="0"/>
+			
+			<f:selectItems value="#{funcionarioBean.filiais}" var="filAtual" itemLabel="#{filAtual.nome}" itemValue="#{filAtual.id}" />
+		</h:selectOneMenu>
+		
+	</h:panelGrid>
+	<h:commandButton action="#{funcionarioBean.gravarNovoFuncionario()}" value="Cadastrar Funcionario" rendered="#{funcionarioBean.botao}"/>	
+	<h:commandButton action="#{funcionarioBean.editarFuncionarioCadastrado()}" value="Editar funcionario ja cadastrado" rendered="#{!funcionarioBean.botao}"/>
+	</h:form>
+	
+	<h:form>
+		<h:dataTable value="#{funcionarioBean.listaDeFuncionario}" var="funcionarioAtual" border="3">	
+			<h:column>
+				<f:facet name="header">Nome do Funcionario</f:facet>
+				<h:outputText value="#{funcionarioAtual.nome}" />		
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">CPF do Funcionario</f:facet>
+				<h:outputText value="#{funcionarioAtual.cpf}" />		
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Salario do Funcionario</f:facet>
+				<h:outputText value="#{funcionarioAtual.moedaCurrency} " />		
+			</h:column>
+			
+			<h:column>			
+				<f:facet name="header">Endereco</f:facet>
+				<h:outputText value="#{funcionarioAtual.endereco.enderecoResumido}" />
+		    </h:column>
+		    
+		    <h:column>
+				<f:facet name="header">Filial</f:facet>
+				<h:outputText value="#{funcionarioAtual.filial.nome}" />		
+			</h:column>	
+			
+			<h:column>
+				<f:facet name="header">Acoes</f:facet>
+				<h:commandButton action="#{funcionarioBean.editarFuncionario(funcionarioAtual)}" value="Editar"  />		
+			</h:column>	
+	</h:dataTable>	
+	</h:form>
+	
+	<h:form>
+		<h:outputLabel value="Lista de Filiais: " />
+		<h:selectOneMenu value="#{funcionarioBean.idFilialAtual}" id="fil">
+			<f:selectItem itemLabel="Selecione uma Filial" itemValue="0"/>
+			
+			<f:selectItems value="#{funcionarioBean.filiais}" var="filAtual" itemLabel="#{filAtual.nome}" itemValue="#{filAtual.id}" />
+		</h:selectOneMenu>
+		
+		<h:commandButton action="#{funcionarioBean.filtrarFiliais()}" value="Filtrar" />
+		<h:commandButton action="#{funcionarioBean.retomarLista()}" value="Retomar lista" />	
+	</h:form>	
+	
+</body> 
+</html>
